@@ -2,13 +2,13 @@
 layout: home
 
 hero:
-  name: "ScooterGitTemplate"
+  name: "report-relay"
   text: "TODO - Short project headline"
   tagline: TODO - Replace with your project tagline.
   actions:
     - theme: brand
       text: View on GitHub
-      link: https://github.com/ScottKirvan/ScooterGitTemplate
+      link: https://github.com/ScottKirvan/report-relay
     - theme: alt
       text: Discord
       link: https://discord.gg/TN6XJSNK5Y

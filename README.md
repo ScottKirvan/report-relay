@@ -1,30 +1,30 @@
-# ScooterGitTemplate [![starline](https://raw.githubusercontent.com/ScottKirvan/ScooterGitTemplate/refs/heads/starlines/ScottKirvan/ScooterGitTemplate/starline.svg)](https://github.com/qoomon/starlines)
+# report-relay [![starline](https://raw.githubusercontent.com/ScottKirvan/report-relay/refs/heads/starlines/ScottKirvan/report-relay/starline.svg)](https://github.com/qoomon/starlines)
 <div align="center">
 
   <img src="assets/media/logo.jpg" alt="logo" width="200" height="auto" />
-    <h1><a href="https://github.com/ScottKirvan/ScooterGitTemplate">ScottKirvan/ScooterGitTemplate</a></h1>
+    <h1><a href="https://github.com/ScottKirvan/report-relay">ScottKirvan/report-relay</a></h1>
   <h3>Nulla nobis dicta iste minus dolor repellendus aspernatur atque</h3>
   
   
 <!-- Badges -->
 <p>
-  <a href="https://github.com/ScottKirvan/ScooterGitTemplate/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/ScottKirvan/ScooterGitTemplate" alt="contributors" />
+  <a href="https://github.com/ScottKirvan/report-relay/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/ScottKirvan/report-relay" alt="contributors" />
   </a>
   <a href="">
-    <img src="https://img.shields.io/github/last-commit/ScottKirvan/ScooterGitTemplate" alt="last update" />
+    <img src="https://img.shields.io/github/last-commit/ScottKirvan/report-relay" alt="last update" />
   </a>
-  <a href="https://github.com/ScottKirvan/ScooterGitTemplate/network/members">
-    <img src="https://img.shields.io/github/forks/ScottKirvan/ScooterGitTemplate" alt="forks" />
+  <a href="https://github.com/ScottKirvan/report-relay/network/members">
+    <img src="https://img.shields.io/github/forks/ScottKirvan/report-relay" alt="forks" />
   </a>
-  <a href="https://github.com/ScottKirvan/ScooterGitTemplate/stargazers">
-    <img src="https://img.shields.io/github/stars/ScottKirvan/ScooterGitTemplate" alt="stars" />
+  <a href="https://github.com/ScottKirvan/report-relay/stargazers">
+    <img src="https://img.shields.io/github/stars/ScottKirvan/report-relay" alt="stars" />
   </a>
-  <a href="https://github.com/ScottKirvan/ScooterGitTemplate/issues/">
-    <img src="https://img.shields.io/github/issues/ScottKirvan/ScooterGitTemplate" alt="open issues" />
+  <a href="https://github.com/ScottKirvan/report-relay/issues/">
+    <img src="https://img.shields.io/github/issues/ScottKirvan/report-relay" alt="open issues" />
   </a>
-  <a href="https://github.com/ScottKirvan/ScooterGitTemplate/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/ScottKirvan/ScooterGitTemplate.svg" alt="license" />
+  <a href="https://github.com/ScottKirvan/report-relay/blob/main/LICENSE.md">
+    <img src="https://img.shields.io/github/license/ScottKirvan/report-relay.svg" alt="license" />
   </a>
   <a href="https://discord.gg/TN6XJSNK5Y">
     <!--<img src="https://img.shields.io/discord/704680098577514527?style=flat-square&label=%F0%9F%92%AC%20discord&color=00ACD7">-->
@@ -35,15 +35,15 @@
 <h4>
     <a href="https://tinyurl.com/3vf7whyd">View Demo</a>
   <span> · </span>
-    <a href="https://github.com/ScottKirvan/ScooterGitTemplate/blob/main/README.md">Documentation</a>
+    <a href="https://github.com/ScottKirvan/report-relay/blob/main/README.md">Documentation</a>
   <span> · </span>
-    <a href="https://github.com/ScottKirvan/ScooterGitTemplate/issues/new?template=bug_report.md">Report Bug</a>
+    <a href="https://github.com/ScottKirvan/report-relay/issues/new?template=bug_report.md">Report Bug</a>
   <span> · </span>
-    <a href="https://github.com/ScottKirvan/ScooterGitTemplate/issues/new?template=feature_request.md">Request Feature</a>
+    <a href="https://github.com/ScottKirvan/report-relay/issues/new?template=feature_request.md">Request Feature</a>
   </h4>
 </div>
 
-**ScooterGitTemplate** is voluptatibus magni nemo est. Nulla nobis dicta iste minus dolor repellendus aspernatur atque. Earum expedita aut inventore tempora fugiat deleniti. Molestias minima nam expedita beatae totam ipsa reprehenderit animi. Occaecati quibusdam beatae ducimus voluptate ut doloribus vitae amet. Quia ut ut voluptate dignissimos adipisci dolorum rem.
+**report-relay** is voluptatibus magni nemo est. Nulla nobis dicta iste minus dolor repellendus aspernatur atque. Earum expedita aut inventore tempora fugiat deleniti. Molestias minima nam expedita beatae totam ipsa reprehenderit animi. Occaecati quibusdam beatae ducimus voluptate ut doloribus vitae amet. Quia ut ut voluptate dignissimos adipisci dolorum rem.
 
 ## Getting Started with This Template
 
@@ -82,7 +82,7 @@
 ## Repo Layout
 
 ```
-ScooterGitTemplate/
+report-relay/
 ├── .github/
 │   ├── gitignore-templates/    # Ready-to-use .gitignore files (Unreal, Unity, Python, Node, C++)
 │   ├── release-please/         # Release-Please configuration and version manifest
@@ -109,14 +109,14 @@ Usage
 
 Contributions / Contact
 -----------------------
-- Please [file an issue](https://github.com/ScottKirvan/ScooterGitTemplate/issues/new), or [grab a fork](https://github.com/ScottKirvan/ScooterGitTemplate/fork), hack away, and submit a [pull request](https://github.com/ScottKirvan/ScooterGitTemplate/pulls).
+- Please [file an issue](https://github.com/ScottKirvan/report-relay/issues/new), or [grab a fork](https://github.com/ScottKirvan/report-relay/fork), hack away, and submit a [pull request](https://github.com/ScottKirvan/report-relay/pulls).
 - Contact me at [linkedin.com/in/scottkirvan/](https://www.linkedin.com/in/scottkirvan/)
 - You can also contact me at my [discord](https://discord.gg/TN6XJSNK5Y) server, I'm cptvideo.
 
 Credits
 -------
-**[ScooterGitTemplate](https://github.com/ScottKirvan/ScooterGitTemplate)** — Copyright (c) 2025 [Scott Kirvan](https://github.com/ScottKirvan). [MIT License](LICENSE.md).
+**[report-relay](https://github.com/ScottKirvan/report-relay)** — Copyright (c) 2025 [Scott Kirvan](https://github.com/ScottKirvan). [MIT License](LICENSE.md).
 
-Project Link:  [ScooterGitTemplate](https://github.com/ScottKirvan/ScooterGitTemplate)  
+Project Link:  [report-relay](https://github.com/ScottKirvan/report-relay)  
 [CHANGELOG](notes/CHANGELOG.md)  
 [TODO](notes/TODO.md)

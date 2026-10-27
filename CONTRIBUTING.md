@@ -1,6 +1,6 @@
-# Contributing to ScooterGitTemplate
+# Contributing to report-relay
 
-First off, thank you for considering contributing to ScooterGitTemplate! It's people like you that make this template better for everyone.
+First off, thank you for considering contributing to report-relay! It's people like you that make this template better for everyone.
 
 ## Code of Conduct
 
@@ -81,7 +81,7 @@ feat!: change template initialization to require manual trigger
 ## Project Structure
 
 ```
-ScooterGitTemplate/
+report-relay/
 ├── .github/
 │   ├── gitignore-templates/    # Ready-to-use .gitignore files
 │   ├── release-please/         # Release-Please config and version manifest
