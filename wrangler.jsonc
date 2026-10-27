@@ -16,7 +16,7 @@
     // Which repo each app's reports go to.
     "APPS": "{\"bojubot\":\"ScottKirvan/BojuBot\"}",
     // The GitHub App's client ID (public). Its private key is the GITHUB_APP_PRIVATE_KEY secret.
-    "GITHUB_APP_CLIENT_ID": ""
+    "GITHUB_APP_CLIENT_ID": "Iv23liDT9DUKzFN2XrgA"
   },
   "ratelimits": [
     { "name": "PER_IP_LIMIT", "namespace_id": "3810", "simple": { "limit": 3, "period": 60 } },
