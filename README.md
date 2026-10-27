@@ -54,16 +54,19 @@ report-relay/
 ├── .github/
 │   ├── gitignore-templates/    # Ready-to-use .gitignore files (Unreal, Unity, Python, Node, C++)
 │   ├── release-please/         # Release-Please configuration and version manifest
-│   └── workflows/              # GitHub Actions workflows (see Key Features above)
+│   └── workflows/              # CI, docs deploy and releases
 ├── assets/
 │   └── media/                  # Images and logos
 ├── docs/                       # VitePress documentation site
 ├── notes/                      # CHANGELOG, VERSION, TODO; developer docs in notes/dev/
+├── src/                        # The Worker
+├── test/                       # Unit tests (node:test)
 ├── CLAUDE.md                   # AI agent context (optional)
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
 ├── LICENSE.md
-└── README.md
+├── README.md
+└── wrangler.jsonc              # Worker config: vars, rate limits
 ```
 
 > **Note:** Issue templates, PR templates, and funding config live in the org-level [`ScottKirvan/.github`](https://github.com/ScottKirvan/.github) repo and apply here automatically via GitHub's community health file fallback.
@@ -75,6 +78,18 @@ How it works
 3. The app gets the issue link back and shows it to the person who reported.
 
 Nothing about the report is stored by the relay. If the relay is switched off or can't be reached, the apps fall back to opening a pre-filled GitHub issue or copying the report.
+
+Setting it up: [notes/dev/setup.md](notes/dev/setup.md). For app developers: [notes/dev/api.md](notes/dev/api.md).
+
+Development
+-----------
+```sh
+npm install
+npm run check      # TypeScript
+npm test           # unit tests
+npm run validate   # Wrangler builds the Worker without deploying
+npm run dev        # local server (needs a .dev.vars file with the App settings)
+```
 
 Contributions / Contact
 -----------------------
