@@ -4,7 +4,7 @@ This is everything needed to get the relay running, once. It takes about half an
 
 - a GitHub account that owns the app repos (here, `ScottKirvan`)
 - the [Cloudflare](https://dash.cloudflare.com/) account that holds the `scottkirvan.com` zone (its nameservers are already Cloudflare's)
-- Node.js and this repo cloned locally, with `npm install` run in it
+- Node.js and this repo cloned locally (step 4 runs `npm install` in it)
 
 Nothing here costs money. The Workers free plan allows 100,000 requests a day.
 
@@ -61,13 +61,21 @@ The Worker's settings are in `wrangler.jsonc`, at the top level of this repo (ne
 
    Put it back to the original line afterwards if you like. If `APPS` isn't valid, the relay answers `unknown_app` for every app.
 3. Save the file. The deploy in step 6 reads it from your clone, so the change doesn't have to be committed first.
-4. In a terminal in your clone, sign in to Cloudflare with the account that holds `scottkirvan.com`:
+4. In a terminal in your clone, install the dependencies, which include Wrangler, Cloudflare's tool for the steps below:
+
+   ```sh
+   npm install
+   ```
+
+   Without it, `npm run deploy` in step 6 fails with "'wrangler' is not recognized". (`npx wrangler` commands still work without it, because `npx` downloads a temporary copy, so the failure only shows up at the deploy.) Run it again after pulling changes to `package.json`.
+
+5. Sign in to Cloudflare with the account that holds `scottkirvan.com`:
 
    ```sh
    npx wrangler login
    ```
 
-5. Store the private key as a Worker secret. It's stored encrypted in Cloudflare and never appears in the repo. In PowerShell:
+6. Store the private key as a Worker secret. It's stored encrypted in Cloudflare and never appears in the repo. In PowerShell:
 
    ```powershell
    Get-Content C:\path\to\your-app.private-key.pem -Raw | npx wrangler secret put GITHUB_APP_PRIVATE_KEY
@@ -124,4 +132,4 @@ To stop the App filing anything at all, suspend or uninstall it under **Settings
 
 ## Rotating the key
 
-Generate a new private key on the App's page, run step 4.5 again with the new file, then delete the old key on the App's page.
+Generate a new private key on the App's page, run step 4.6 again with the new file, then delete the old key on the App's page.
