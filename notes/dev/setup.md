@@ -100,9 +100,18 @@ In the dashboard you can now see a DNS record for `report` of type **Worker**, a
 Send a test report to the relay's own repo (this needs the `report-relay` entry from step 4.2):
 
 ```powershell
-curl.exe -X POST https://report.scottkirvan.com/report `
-  -H "content-type: application/json" `
-  -d '{\"app\":\"report-relay\",\"type\":\"feedback\",\"title\":\"[GENERAL] Relay test\",\"body\":\"Testing the relay.\"}'
+$report = "$env:TEMP\relay-test.json"
+'{"app":"report-relay","type":"feedback","title":"[GENERAL] Relay test","body":"Testing the relay."}' | Set-Content $report
+curl.exe -X POST https://report.scottkirvan.com/report -H "content-type: application/json" --data-binary "@$report"
+```
+
+The report goes through a file because PowerShell versions disagree on how to pass quotes to `curl.exe`: an inline `-d '{\"app\":…}'` works in Windows PowerShell 5.1 but reaches the relay as `invalid_json` from PowerShell 7.3 on. `curl.exe` also prints the relay's error code when it fails, which `Invoke-RestMethod` hides on 5.1.
+
+In a POSIX shell:
+
+```sh
+curl -X POST https://report.scottkirvan.com/report -H "content-type: application/json" \
+  -d '{"app":"report-relay","type":"feedback","title":"[GENERAL] Relay test","body":"Testing the relay."}'
 ```
 
 A working relay answers `201` with the new issue's `url`. Open it: the author is your App, and it has the `user-report` label. Close the issue when you're done.
