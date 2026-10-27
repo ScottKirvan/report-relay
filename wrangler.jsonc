@@ -3,6 +3,11 @@
   "name": "report-relay",
   "main": "src/index.ts",
   "compatibility_date": "2026-10-01",
+  // The apps have this address built in; changing it needs an app release.
+  "routes": [{ "pattern": "report.scottkirvan.com", "custom_domain": true }],
+  // One public address only: no workers.dev or preview URLs.
+  "workers_dev": false,
+  "preview_urls": false,
   // No logs or traces are kept: report content and IP addresses must not be stored.
   "observability": { "enabled": false },
   "vars": {

@@ -2,6 +2,8 @@
 
 For apps that send reports to the relay.
 
+The relay's address is `https://report.scottkirvan.com`.
+
 ## `POST /report`
 
 Send JSON with a `content-type: application/json` header:
