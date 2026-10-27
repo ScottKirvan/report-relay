@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "report-relay",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  // No logs or traces are kept: report content and IP addresses must not be stored.
+  "observability": { "enabled": false },
+  "vars": {
+    // Turn filing off with "false"; the apps fall back to their GitHub link and Copy report.
+    "FILING_ENABLED": "true",
+    // Which repo each app's reports go to.
+    "APPS": "{\"bojubot\":\"ScottKirvan/BojuBot\"}",
+    // The GitHub App's client ID (public). Its private key is the GITHUB_APP_PRIVATE_KEY secret.
+    "GITHUB_APP_CLIENT_ID": ""
+  },
+  "ratelimits": [
+    { "name": "PER_IP_LIMIT", "namespace_id": "3810", "simple": { "limit": 3, "period": 60 } },
+    { "name": "ALL_LIMIT", "namespace_id": "3811", "simple": { "limit": 20, "period": 60 } }
+  ]
+}

@@ -45,7 +45,7 @@
 
 **report-relay** is a [Cloudflare Worker](https://developers.cloudflare.com/workers/) that receives problem reports from the in-app report forms in Scott Kirvan's apps (starting with [BojuBot](https://github.com/ScottKirvan/BojuBot)) and files them as public GitHub issues on the right repo. People can report a problem without a GitHub account, and no credentials ship inside the apps.
 
-> **Status:** in development. Nothing is deployed yet.
+> **Status:** version 1, not deployed yet. No email.
 
 ## Repo Layout
 

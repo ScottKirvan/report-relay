@@ -2,6 +2,17 @@
 
 A Cloudflare Worker that receives in-app problem reports from Scott Kirvan's apps (BojuBot first) and files them as public GitHub issues through a GitHub App. Design and requirements: [BojuBot #381](https://github.com/ScottKirvan/BojuBot/issues/381). Version 1 has no email.
 
+## Project
+
+- `src/report.ts`: validates a report (`parseReport`), reads the app-to-repo map (`parseApps`), builds the issue (`buildIssue`). Pure.
+- `src/github.ts`: GitHub App auth (RS256 JWT via Web Crypto, PKCS#1 keys wrapped as PKCS#8) and filing: installation → repo-scoped token → issue.
+- `src/handler.ts`: the request pipeline (route, kill switch, rate limits, content type, size, validation, filing, error codes). GitHub is injected so tests never reach the network.
+- `src/index.ts`: the Worker entry point.
+- `wrangler.jsonc`: vars (`FILING_ENABLED`, `APPS`, `GITHUB_APP_CLIENT_ID`), rate-limit bindings, observability off. The private key is the `GITHUB_APP_PRIVATE_KEY` secret.
+- Docs: `docs/setup.md` (one-time setup), `docs/api.md` (the contract apps code against).
+- Commands: `npm run check`, `npm test`, `npm run validate` (Wrangler dry run). CI runs all three.
+- Never log report content or IP addresses; only the failing GitHub step and status.
+
 ## Keeping This File Current
 
 This file is the primary context for any agent working in this repo — keep it accurate
