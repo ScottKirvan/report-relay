@@ -3,7 +3,7 @@
 This is everything needed to get the relay running, once. It takes about half an hour. You need:
 
 - a GitHub account that owns the app repos (here, `ScottKirvan`)
-- a free [Cloudflare](https://dash.cloudflare.com/sign-up) account
+- the [Cloudflare](https://dash.cloudflare.com/) account that holds the `scottkirvan.com` zone (its nameservers are already Cloudflare's)
 - Node.js and this repo cloned locally, with `npm install` run in it
 
 Nothing here costs money. The Workers free plan allows 100,000 requests a day.
@@ -26,7 +26,7 @@ The relay files issues as a GitHub App. The App can only reach the repos you ins
 ## 2. Install the App on the app repos
 
 1. On the App's page, click **Install App**, then **Install** next to your account.
-2. Choose **Only select repositories** and pick each repo that reports go to (`BojuBot`). Also pick `report-relay` itself, so you can test the relay without filing on a real app's repo (see step 6).
+2. Choose **Only select repositories** and pick each repo that reports go to (`BojuBot`). Also pick `report-relay` itself, so you can test the relay without filing on a real app's repo (see step 7).
 3. Click **Install**.
 
 To add another app later, come back here (**Settings → Applications → Installed GitHub Apps → Configure**) and add its repo.
@@ -44,7 +44,7 @@ gh label create user-report -R ScottKirvan/report-relay --color FBCA04 --descrip
 
 1. In `wrangler.jsonc`, set `GITHUB_APP_CLIENT_ID` to the Client ID from step 1. It isn't secret, so it's fine to commit (on a branch, through a PR).
 2. Check `APPS`: it maps each app name to the repo its reports go to. Add `"report-relay": "ScottKirvan/report-relay"` while you test, and remove it again afterwards if you like.
-3. Sign in to Cloudflare from this repo:
+3. Sign in to Cloudflare from this repo, with the account that holds `scottkirvan.com`:
 
    ```sh
    npx wrangler login
@@ -62,20 +62,28 @@ gh label create user-report -R ScottKirvan/report-relay --color FBCA04 --descrip
 
    The first time, Wrangler may say the Worker doesn't exist yet and offer to create it. Say yes.
 
-## 5. Deploy
+## 5. Check the address is free
+
+The relay's address is `report.scottkirvan.com`, set in `wrangler.jsonc` under `routes`. The deploy creates its DNS record and HTTPS certificate for you, but Cloudflare refuses if that name already has a CNAME record.
+
+In the Cloudflare dashboard, open `scottkirvan.com` → **DNS** → **Records** and search for `report`. If a record exists, delete it (or pick another name in `wrangler.jsonc` before the first deploy: the apps build the address in, so changing it later means an app release).
+
+## 6. Deploy
 
 ```sh
 npm run deploy
 ```
 
-Wrangler prints the Worker's address, something like `https://report-relay.<your-subdomain>.workers.dev`. Reports go to that address plus `/report`.
+Wrangler lists `report.scottkirvan.com (custom domain)` under the deployed triggers. The first time, the certificate can take a few minutes; until then HTTPS requests may fail.
 
-## 6. Test it
+In the dashboard you can now see a DNS record for `report` of type **Worker**, and under **Workers & Pages** → `report-relay` → **Settings** → **Domains & Routes**, the custom domain. The Worker has no `workers.dev` address: `report.scottkirvan.com` is the only way in.
 
-Send a test report to the relay's own repo (this needs the `report-relay` entry from step 4):
+## 7. Test it
+
+Send a test report to the relay's own repo (this needs the `report-relay` entry from step 4.2):
 
 ```powershell
-curl.exe -X POST https://report-relay.<your-subdomain>.workers.dev/report `
+curl.exe -X POST https://report.scottkirvan.com/report `
   -H "content-type: application/json" `
   -d '{\"app\":\"report-relay\",\"type\":\"feedback\",\"title\":\"[GENERAL] Relay test\",\"body\":\"Testing the relay.\"}'
 ```
@@ -92,6 +100,10 @@ If spam arrives, or anything goes wrong, turn filing off. The apps then show the
 - **Lasting:** set `"FILING_ENABLED": "false"` in `wrangler.jsonc` and run `npm run deploy`.
 
 To stop the App filing anything at all, suspend or uninstall it under **Settings → Applications → Installed GitHub Apps**.
+
+## Removing the relay
+
+`npx wrangler delete` removes the Worker and its custom domain. Cloudflare keeps the certificate it issued; delete it under `scottkirvan.com` → **SSL/TLS** → **Edge Certificates** if you like.
 
 ## Rotating the key
 
