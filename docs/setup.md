@@ -1,0 +1,98 @@
+# Setting up the relay
+
+This is everything needed to get the relay running, once. It takes about half an hour. You need:
+
+- a GitHub account that owns the app repos (here, `ScottKirvan`)
+- a free [Cloudflare](https://dash.cloudflare.com/sign-up) account
+- Node.js and this repo cloned locally, with `npm install` run in it
+
+Nothing here costs money. The Workers free plan allows 100,000 requests a day.
+
+## 1. Create the GitHub App
+
+The relay files issues as a GitHub App. The App can only reach the repos you install it on, and only their issues.
+
+1. Open [github.com/settings/apps/new](https://github.com/settings/apps/new).
+2. Fill in:
+   - **GitHub App name:** the name shown as the issue author, with `[bot]` after it. It must be unique on GitHub, for example `Scott Kirvan Reports`.
+   - **Homepage URL:** `https://github.com/ScottKirvan/report-relay`
+   - **Webhook:** untick **Active**. The relay doesn't need events.
+3. Under **Permissions → Repository permissions**, set **Issues** to **Read and write**. Leave everything else at **No access** (GitHub adds **Metadata: Read-only** by itself).
+4. Under **Where can this GitHub App be installed?**, choose **Only on this account**.
+5. Click **Create GitHub App**.
+6. On the App's page, copy the **Client ID** (it starts with `Iv`). You need it in step 4.
+7. Further down, under **Private keys**, click **Generate a private key**. Your browser downloads a `.pem` file. Keep it somewhere safe and out of any repo: anyone with this file can file issues as the App.
+
+## 2. Install the App on the app repos
+
+1. On the App's page, click **Install App**, then **Install** next to your account.
+2. Choose **Only select repositories** and pick each repo that reports go to (`BojuBot`). Also pick `report-relay` itself, so you can test the relay without filing on a real app's repo (see step 6).
+3. Click **Install**.
+
+To add another app later, come back here (**Settings → Applications → Installed GitHub Apps → Configure**) and add its repo.
+
+## 3. Add the `user-report` label
+
+Every report gets the `user-report` label, plus `bug` or `enhancement` from its type. GitHub repos have `bug` and `enhancement` already. Add `user-report` to each repo:
+
+```sh
+gh label create user-report -R ScottKirvan/BojuBot --color FBCA04 --description "Filed from an in-app report form"
+gh label create user-report -R ScottKirvan/report-relay --color FBCA04 --description "Filed from an in-app report form"
+```
+
+## 4. Configure the Worker
+
+1. In `wrangler.jsonc`, set `GITHUB_APP_CLIENT_ID` to the Client ID from step 1. It isn't secret, so it's fine to commit (on a branch, through a PR).
+2. Check `APPS`: it maps each app name to the repo its reports go to. Add `"report-relay": "ScottKirvan/report-relay"` while you test, and remove it again afterwards if you like.
+3. Sign in to Cloudflare from this repo:
+
+   ```sh
+   npx wrangler login
+   ```
+
+4. Store the private key as a Worker secret. It's stored encrypted in Cloudflare and never appears in the repo. In PowerShell:
+
+   ```powershell
+   Get-Content C:\path\to\your-app.private-key.pem -Raw | npx wrangler secret put GITHUB_APP_PRIVATE_KEY
+   ```
+
+   In a POSIX shell: `npx wrangler secret put GITHUB_APP_PRIVATE_KEY < /path/to/your-app.private-key.pem`
+
+   The key can stay in the format GitHub downloads (`BEGIN RSA PRIVATE KEY`); the relay converts it.
+
+   The first time, Wrangler may say the Worker doesn't exist yet and offer to create it. Say yes.
+
+## 5. Deploy
+
+```sh
+npm run deploy
+```
+
+Wrangler prints the Worker's address, something like `https://report-relay.<your-subdomain>.workers.dev`. Reports go to that address plus `/report`.
+
+## 6. Test it
+
+Send a test report to the relay's own repo (this needs the `report-relay` entry from step 4):
+
+```powershell
+curl.exe -X POST https://report-relay.<your-subdomain>.workers.dev/report `
+  -H "content-type: application/json" `
+  -d '{\"app\":\"report-relay\",\"type\":\"feedback\",\"title\":\"[GENERAL] Relay test\",\"body\":\"Testing the relay.\"}'
+```
+
+A working relay answers `201` with the new issue's `url`. Open it: the author is your App, and it has the `user-report` label. Close the issue when you're done.
+
+If it fails, the error code says which part to check (see [API](./api#errors)). `not_configured` means the client ID or the secret is missing. `upstream_error` means GitHub refused: check that the App is installed on that repo and has **Issues: Read and write**.
+
+## Turning filing off
+
+If spam arrives, or anything goes wrong, turn filing off. The apps then show their own fallbacks (**Open on GitHub** and **Copy report**), so no report is lost.
+
+- **Quickest:** Cloudflare dashboard → **Workers & Pages** → `report-relay` → **Settings** → **Variables and Secrets** → set `FILING_ENABLED` to `false` → **Deploy**. Note that the next `npm run deploy` puts back the value in `wrangler.jsonc`.
+- **Lasting:** set `"FILING_ENABLED": "false"` in `wrangler.jsonc` and run `npm run deploy`.
+
+To stop the App filing anything at all, suspend or uninstall it under **Settings → Applications → Installed GitHub Apps**.
+
+## Rotating the key
+
+Generate a new private key on the App's page, run step 4.4 again with the new file, then delete the old key on the App's page.

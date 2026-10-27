@@ -7,7 +7,15 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'Setup', link: '/setup' },
+      { text: 'API', link: '/api' },
       { text: 'GitHub', link: 'https://github.com/ScottKirvan/report-relay' }
+    ],
+    sidebar: [
+      { text: 'Guide', items: [
+        { text: 'Setting up the relay', link: '/setup' },
+        { text: 'API', link: '/api' }
+      ] }
     ],
     socialLinks: [
       { icon: 'github', link: 'https://github.com/ScottKirvan/report-relay' },

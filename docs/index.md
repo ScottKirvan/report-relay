@@ -7,6 +7,12 @@ hero:
   tagline: People report a problem from inside the app. It lands on the right GitHub repo, with no GitHub account needed.
   actions:
     - theme: brand
+      text: Set it up
+      link: /setup
+    - theme: alt
+      text: API
+      link: /api
+    - theme: alt
       text: View on GitHub
       link: https://github.com/ScottKirvan/report-relay
     - theme: alt
