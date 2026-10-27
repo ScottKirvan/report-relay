@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   title: "report-relay",
-  description: "TODO - Replace with your project description.",
+  description: "In-app problem reports, filed as GitHub issues.",
   base: '/report-relay/',
   themeConfig: {
     nav: [

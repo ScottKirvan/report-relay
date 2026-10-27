@@ -3,7 +3,7 @@
 
   <img src="assets/media/logo.jpg" alt="logo" width="200" height="auto" />
     <h1><a href="https://github.com/ScottKirvan/report-relay">ScottKirvan/report-relay</a></h1>
-  <h3>Nulla nobis dicta iste minus dolor repellendus aspernatur atque</h3>
+  <h3>In-app problem reports, filed as GitHub issues.</h3>
   
   
 <!-- Badges -->
@@ -43,41 +43,9 @@
   </h4>
 </div>
 
-**report-relay** is voluptatibus magni nemo est. Nulla nobis dicta iste minus dolor repellendus aspernatur atque. Earum expedita aut inventore tempora fugiat deleniti. Molestias minima nam expedita beatae totam ipsa reprehenderit animi. Occaecati quibusdam beatae ducimus voluptate ut doloribus vitae amet. Quia ut ut voluptate dignissimos adipisci dolorum rem.
+**report-relay** is a [Cloudflare Worker](https://developers.cloudflare.com/workers/) that receives problem reports from the in-app report forms in Scott Kirvan's apps (starting with [BojuBot](https://github.com/ScottKirvan/BojuBot)) and files them as public GitHub issues on the right repo. People can report a problem without a GitHub account, and no credentials ship inside the apps.
 
-## Getting Started with This Template
-
->[!IMPORTANT]
-> **Customization Checklist** — After creating a repository from this template, update these items:
->
-> - [ ] Update the project description (line 5 above and in repository settings)
-> - [ ] Replace `assets/media/logo.jpg` with your project logo
-> - [ ] Update or remove the "View Docs" link (line 35)
-> - [ ] Update or remove the Discord badge/link (lines 28–31)
-> - [ ] Choose and apply a `.gitignore` from `.github/gitignore-templates/` (see [gitignore templates](.github/gitignore-templates/))
-> - [ ] Fill in `project_context`, `header`, `footer`, and `emoji` TODOs in `.github/workflows/release.yml` and `.github/workflows/pre-release-staging.yml`
-> - [ ] Fill in the Features, Installation, and Usage sections below
-> - [ ] Review and update the [Code of Conduct](CODE_OF_CONDUCT.md) contact information
-> - [ ] Enable GitHub Pages in repository settings (source: GitHub Actions) for your docs site
-> - [ ] Review and customize `CLAUDE.md` if using AI coding agents, or delete it if not
-> - [ ] Remove or update this checklist section
-
->[!TIP]
-> **Automatic initialization**: When you create a new repository from this template, a GitHub Actions workflow automatically updates all repository references, URLs, and badges in the README with your new repository information, then deletes itself. No manual find-and-replace needed.
-
-## Key Features
-
-**Automated Release Management**: The `release.yml` workflow uses [Release-Please](https://github.com/googleapis/release-please) for automated versioning and CHANGELOG updates driven by [Conventional Commits](https://www.conventionalcommits.org/). AI-generated release notes (via Gemini) and Discord notifications are wired in. See [CONTRIBUTING.md](CONTRIBUTING.md) for commit conventions.
-
-**VitePress Documentation Site**: The `docs/` folder contains a [VitePress](https://vitepress.dev/) site that deploys to GitHub Pages via the `docs.yml` workflow. Enable Pages in your repo settings (source: GitHub Actions) to publish it.
-
-**Pre-release Staging**: The `pre-release-staging.yml` workflow lets you generate and review AI-drafted release notes on a staging branch before the release goes out.
-
-**Template Initialization**: The `template-init.yml` workflow runs once on your first push to a derived repo, substitutes all repository references throughout the project, enables the release workflow, and then deletes itself.
-
-**.gitignore Templates**: The `.github/gitignore-templates/` folder contains ready-to-use `.gitignore` files for Unreal Engine, Unity, Python, Node.js, C++, and general development. See the [templates README](.github/gitignore-templates/) for usage.
-
-**AI Agent Context (optional)**: The included `CLAUDE.md` gives AI coding agents (e.g. [Claude Code](https://claude.ai/code)) a starting set of engineering standards — branching conventions, commit discipline, test-driven development, verification discipline, and a no-shortcuts ethos. The project name is automatically substituted on initialization. Customize it as your project evolves, or delete it if you're not using AI agents.
+> **Status:** in development. Nothing is deployed yet.
 
 ## Repo Layout
 
