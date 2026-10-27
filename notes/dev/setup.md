@@ -42,15 +42,32 @@ gh label create user-report -R ScottKirvan/report-relay --color FBCA04 --descrip
 
 ## 4. Configure the Worker
 
-1. In `wrangler.jsonc`, set `GITHUB_APP_CLIENT_ID` to the Client ID from step 1. It isn't secret, so it's fine to commit (on a branch, through a PR).
-2. Check `APPS`: it maps each app name to the repo its reports go to. Add `"report-relay": "ScottKirvan/report-relay"` while you test, and remove it again afterwards if you like.
-3. Sign in to Cloudflare from this repo, with the account that holds `scottkirvan.com`:
+The Worker's settings are in `wrangler.jsonc`, at the top level of this repo (next to `package.json`). Open it in your local clone and find the `vars` block (shown here without its comments):
+
+```jsonc
+"vars": {
+  "FILING_ENABLED": "true",
+  "APPS": "{\"bojubot\":\"ScottKirvan/BojuBot\"}",
+  "GITHUB_APP_CLIENT_ID": ""
+},
+```
+
+1. Put the Client ID from step 1 between the quotes of `GITHUB_APP_CLIENT_ID`, for example `"GITHUB_APP_CLIENT_ID": "Iv23liAbCdEf123456"`. It isn't secret, so it's fine to commit (on a branch, through a PR).
+2. `APPS` maps each app name to the repo its reports go to. Its value is JSON written inside a string, so every inner quote has a backslash before it. While you test, add the relay's own repo so the line reads:
+
+   ```jsonc
+   "APPS": "{\"bojubot\":\"ScottKirvan/BojuBot\",\"report-relay\":\"ScottKirvan/report-relay\"}",
+   ```
+
+   Put it back to the original line afterwards if you like. If `APPS` isn't valid, the relay answers `unknown_app` for every app.
+3. Save the file. The deploy in step 6 reads it from your clone, so the change doesn't have to be committed first.
+4. In a terminal in your clone, sign in to Cloudflare with the account that holds `scottkirvan.com`:
 
    ```sh
    npx wrangler login
    ```
 
-4. Store the private key as a Worker secret. It's stored encrypted in Cloudflare and never appears in the repo. In PowerShell:
+5. Store the private key as a Worker secret. It's stored encrypted in Cloudflare and never appears in the repo. In PowerShell:
 
    ```powershell
    Get-Content C:\path\to\your-app.private-key.pem -Raw | npx wrangler secret put GITHUB_APP_PRIVATE_KEY
@@ -107,4 +124,4 @@ To stop the App filing anything at all, suspend or uninstall it under **Settings
 
 ## Rotating the key
 
-Generate a new private key on the App's page, run step 4.4 again with the new file, then delete the old key on the App's page.
+Generate a new private key on the App's page, run step 4.5 again with the new file, then delete the old key on the App's page.
