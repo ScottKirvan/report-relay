@@ -58,7 +58,7 @@ report-relay/
 ├── assets/
 │   └── media/                  # Images and logos
 ├── docs/                       # VitePress documentation site
-├── notes/                      # CHANGELOG, VERSION, TODO
+├── notes/                      # CHANGELOG, VERSION, TODO; developer docs in notes/dev/
 ├── CLAUDE.md                   # AI agent context (optional)
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
@@ -68,12 +68,13 @@ report-relay/
 
 > **Note:** Issue templates, PR templates, and funding config live in the org-level [`ScottKirvan/.github`](https://github.com/ScottKirvan/.github) repo and apply here automatically via GitHub's community health file fallback.
 
-Features
---------
-Installation
+How it works
 ------------
-Usage
------
+1. An app's report form posts the report (app, type, title, body) to the relay.
+2. The relay checks it, looks up which repo that app reports to, and files a public issue there through a GitHub App, labelled `user-report`.
+3. The app gets the issue link back and shows it to the person who reported.
+
+Nothing about the report is stored by the relay. If the relay is switched off or can't be reached, the apps fall back to opening a pre-filled GitHub issue or copying the report.
 
 Contributions / Contact
 -----------------------
