@@ -1,5 +1,7 @@
 # CLAUDE.md — report-relay
 
+A Cloudflare Worker that receives in-app problem reports from Scott Kirvan's apps (BojuBot first) and files them as public GitHub issues through a GitHub App. Design and requirements: [BojuBot #381](https://github.com/ScottKirvan/BojuBot/issues/381). Version 1 has no email.
+
 ## Keeping This File Current
 
 This file is the primary context for any agent working in this repo — keep it accurate

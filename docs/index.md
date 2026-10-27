@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: "report-relay"
-  text: "TODO - Short project headline"
-  tagline: TODO - Replace with your project tagline.
+  text: "In-app problem reports, filed as GitHub issues"
+  tagline: People report a problem from inside the app. It lands on the right GitHub repo, with no GitHub account needed.
   actions:
     - theme: brand
       text: View on GitHub
@@ -14,17 +14,17 @@ hero:
       link: https://discord.gg/TN6XJSNK5Y
 
 features:
-  - icon: 🚀
-    title: Feature One
-    details: TODO - Describe your first key feature here.
+  - icon: 📮
+    title: No account needed
+    details: Apps send reports to one endpoint. The relay files them as public GitHub issues that anyone can read.
 
-  - icon: 🛠️
-    title: Feature Two
-    details: TODO - Describe your second key feature here.
+  - icon: 🔐
+    title: No credentials in the apps
+    details: Issues are filed through a GitHub App installed only on the app repos. Its key lives in the Worker's secrets.
 
-  - icon: 📖
-    title: Feature Three
-    details: TODO - Describe your third key feature here.
+  - icon: 🧹
+    title: Keeps nothing
+    details: No report content or IP addresses are stored or logged. A kill switch turns filing off while the apps fall back to their own GitHub link.
 ---
 
 <!-- Begin Sponsors -->

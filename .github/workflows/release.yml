@@ -79,12 +79,11 @@ jobs:
     with:
       tag_name: ${{ needs.release-please.outputs.tag_name }}
       project_name: ${{ github.event.repository.name }}
-      # TODO: Replace with a one-sentence description of what this project does
-      project_context: "${{ github.event.repository.name }} is a project by ${{ github.repository_owner }}."
+      project_context: "report-relay is a Cloudflare Worker that files in-app problem reports from Scott Kirvan's apps as public GitHub issues, so people can report problems without a GitHub account."
       header: |
         ## ${{ github.event.repository.name }}
 
-        > TODO: Replace with your project tagline.
+        > In-app problem reports, filed as GitHub issues.
 
         ---
       footer: |
@@ -110,6 +109,6 @@ jobs:
     with:
       tag_name: ${{ needs.release-please.outputs.tag_name }}
       project_name: ${{ github.event.repository.name }}
-      emoji: "🚀"  # TODO: Replace with your project's emoji
+      emoji: "📮"
       discord_blurb: ${{ needs.apply-staged-notes.outputs.discord_blurb || needs.improve-release-notes.outputs.discord_blurb }}
     secrets: inherit
