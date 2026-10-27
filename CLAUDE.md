@@ -9,7 +9,7 @@ A Cloudflare Worker that receives in-app problem reports from Scott Kirvan's app
 - `src/handler.ts`: the request pipeline (route, kill switch, rate limits, content type, size, validation, filing, error codes). GitHub is injected so tests never reach the network.
 - `src/index.ts`: the Worker entry point.
 - `wrangler.jsonc`: vars (`FILING_ENABLED`, `APPS`, `GITHUB_APP_CLIENT_ID`), rate-limit bindings, observability off. The private key is the `GITHUB_APP_PRIVATE_KEY` secret.
-- Docs: `docs/setup.md` (one-time setup), `docs/api.md` (the contract apps code against).
+- Developer docs in `notes/dev/`: `setup.md` (one-time setup), `api.md` (the contract apps code against). `docs/` is the public VitePress site.
 - Commands: `npm run check`, `npm test`, `npm run validate` (Wrangler dry run). CI runs all three.
 - Never log report content or IP addresses; only the failing GitHub step and status.
 

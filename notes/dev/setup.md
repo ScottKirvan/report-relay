@@ -82,7 +82,7 @@ curl.exe -X POST https://report-relay.<your-subdomain>.workers.dev/report `
 
 A working relay answers `201` with the new issue's `url`. Open it: the author is your App, and it has the `user-report` label. Close the issue when you're done.
 
-If it fails, the error code says which part to check (see [API](./api#errors)). `not_configured` means the client ID or the secret is missing. `upstream_error` means GitHub refused: check that the App is installed on that repo and has **Issues: Read and write**.
+If it fails, the error code says which part to check (see [API](./api.md#errors)). `not_configured` means the client ID or the secret is missing. `upstream_error` means GitHub refused: check that the App is installed on that repo and has **Issues: Read and write**.
 
 ## Turning filing off
 
