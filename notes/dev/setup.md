@@ -47,16 +47,19 @@ The Worker's settings are in `wrangler.jsonc`, at the top level of this repo (ne
 ```jsonc
 "vars": {
   "FILING_ENABLED": "true",
-  "APPS": "{\"bojubot\":\"ScottKirvan/BojuBot\"}",
+  "APPS": "{\"bojubot\":\"ScottKirvan/BojuBot\",\"quki-notes\":\"ScottKirvan/QuKi-Notes\"}",
+  "ALLOWED_ORIGINS": "[\"https://qukinotes.scottkirvan.com\"]",
   "GITHUB_APP_CLIENT_ID": ""
 },
 ```
+
+`ALLOWED_ORIGINS` lists the web addresses whose pages may call the relay from a browser (see [API: browser apps](./api.md#browser-apps-cors)). An app that sends from native code doesn't need an entry.
 
 1. Put the Client ID from step 1 between the quotes of `GITHUB_APP_CLIENT_ID`, for example `"GITHUB_APP_CLIENT_ID": "Iv23liAbCdEf123456"`. It isn't secret, so it's fine to commit (on a branch, through a PR).
 2. `APPS` maps each app name to the repo its reports go to. Its value is JSON written inside a string, so every inner quote has a backslash before it. While you test, add the relay's own repo so the line reads:
 
    ```jsonc
-   "APPS": "{\"bojubot\":\"ScottKirvan/BojuBot\",\"report-relay\":\"ScottKirvan/report-relay\"}",
+   "APPS": "{\"bojubot\":\"ScottKirvan/BojuBot\",\"quki-notes\":\"ScottKirvan/QuKi-Notes\",\"report-relay\":\"ScottKirvan/report-relay\"}",
    ```
 
    Put it back to the original line afterwards if you like. If `APPS` isn't valid, the relay answers `unknown_app` for every app.

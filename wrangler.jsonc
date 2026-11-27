@@ -14,7 +14,10 @@
     // Turn filing off with "false"; the apps fall back to their GitHub link and Copy report.
     "FILING_ENABLED": "true",
     // Which repo each app's reports go to.
-    "APPS": "{\"bojubot\":\"ScottKirvan/BojuBot\"}",
+    "APPS": "{\"bojubot\":\"ScottKirvan/BojuBot\",\"quki-notes\":\"ScottKirvan/QuKi-Notes\"}",
+    // Browser origins allowed to call the relay (CORS), as a JSON array. Native clients
+    // (Obsidian's requestUrl, Capacitor native HTTP, Electron's main process) don't need an entry.
+    "ALLOWED_ORIGINS": "[\"https://qukinotes.scottkirvan.com\"]",
     // The GitHub App's client ID (public). Its private key is the GITHUB_APP_PRIVATE_KEY secret.
     "GITHUB_APP_CLIENT_ID": "Iv23liDT9DUKzFN2XrgA"
   },
