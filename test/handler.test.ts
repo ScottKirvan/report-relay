@@ -65,6 +65,49 @@ describe('handle', () => {
     }]);
   });
 
+  test('answers a CORS preflight from an allowed origin without counting it', async () => {
+    const f = filer();
+    const e = env({ ALLOWED_ORIGINS: '["https://app.example"]', FILING_ENABLED: 'false' });
+    const preflight = new Request('https://relay.example/report', {
+      method: 'OPTIONS',
+      headers: { origin: 'https://app.example', 'access-control-request-method': 'POST' },
+    });
+    const response = await handle(preflight, e, f);
+    assert.equal(response.status, 204);
+    assert.equal(response.headers.get('access-control-allow-origin'), 'https://app.example');
+    assert.equal(response.headers.get('access-control-allow-methods'), 'POST');
+    assert.equal(response.headers.get('access-control-allow-headers'), 'content-type');
+    assert.equal(response.headers.get('vary'), 'Origin');
+    assert.deepEqual((e.PER_IP_LIMIT as ReturnType<typeof limiter>).keys, []);
+    assert.equal(f.calls.length, 0);
+  });
+
+  test('adds CORS headers to every answer for an allowed origin, errors included', async () => {
+    const e = env({ ALLOWED_ORIGINS: '["https://app.example"]' });
+    const ok = await handle(post(REPORT, { origin: 'https://app.example' }), e, filer());
+    assert.equal(ok.status, 201);
+    assert.equal(ok.headers.get('access-control-allow-origin'), 'https://app.example');
+
+    const bad = await handle(post('{', { origin: 'https://app.example' }), e, filer());
+    assert.equal(bad.status, 400);
+    assert.equal(bad.headers.get('access-control-allow-origin'), 'https://app.example');
+  });
+
+  test('sends no CORS headers for other origins or a broken origin list', async () => {
+    const preflight = (origins: string | undefined) => handle(new Request('https://relay.example/report', {
+      method: 'OPTIONS', headers: { origin: 'https://evil.example' },
+    }), env({ ALLOWED_ORIGINS: origins }), filer());
+
+    const other = await preflight('["https://app.example"]');
+    assert.equal(other.status, 405);
+    assert.equal(other.headers.get('access-control-allow-origin'), null);
+    assert.equal((await preflight('not json')).status, 405);
+
+    const native = await handle(post(REPORT), env({ ALLOWED_ORIGINS: '["https://app.example"]' }), filer());
+    assert.equal(native.status, 201);
+    assert.equal(native.headers.get('access-control-allow-origin'), null);
+  });
+
   test('only POST /report exists', async () => {
     const f = filer();
     const notFound = await handle(post(REPORT, {}, '/other'), env(), f);

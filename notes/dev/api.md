@@ -56,6 +56,14 @@ Every error is JSON, `{ "error": "<code>" }`, plus `field` for `invalid_report`.
 
 The fallbacks are what the app does without the relay: open a pre-filled GitHub issue in the browser, and copy the report to the clipboard. An app should always keep them, so a report is never lost.
 
+## Browser apps (CORS)
+
+A web page or WebView can only read the relay's answer if the relay allows its origin. The allowed origins are in the relay's `ALLOWED_ORIGINS`; today that's `https://qukinotes.scottkirvan.com`.
+
+- For an allowed origin, the relay answers the browser's `OPTIONS` preflight with `204`, and every answer, errors included, carries `Access-Control-Allow-Origin`. Preflights don't count toward the rate limits.
+- Any other origin gets no CORS headers, so the browser blocks the request; its preflight gets `405`.
+- Native clients send no `Origin` header and don't need an entry: Obsidian's `requestUrl` (BojuBot), Capacitor's native HTTP, and Electron's main process.
+
 ## Limits
 
 Each Cloudflare location counts separately, and the counts are approximate.
